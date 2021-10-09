@@ -21,6 +21,7 @@ namespace MarsRover.Bussines
             return (roamingRobot.PositionXPlane + " " + roamingRobot.PositionYPlane + " " + roamingRobot.Direction);
         }
 
+        #region Command Control
         private void CommandControl(RoamingRobot roamingRobot, string command)
         {
             for (int i = 0; i < command.Length; i++)
@@ -52,8 +53,7 @@ namespace MarsRover.Bussines
                 }
             }
         }
-
-        
+        #endregion
 
         #region Komut Kontrolü ile Robotun yönünü belirleme
         private bool CheckCommand(char command, RoamingRobot roamingRobot)
@@ -107,7 +107,6 @@ namespace MarsRover.Bussines
         }
         #endregion
 
-
         #region Robotun Lokasyon içerisinde bulunup bulunmama durumu
         private bool CheckIfRobotLocation(Point location, RoamingRobot roamingRobot)
         {
@@ -134,6 +133,7 @@ namespace MarsRover.Bussines
 
         }
         #endregion
+
         #region Gezicinin X Yönünde Bulunup Bulunmama Durumu
         private bool CheckIfRoamingRobotXDirection(char direction)
         {
