@@ -28,85 +28,111 @@ namespace MarsRover.Bussines
             {
                 if (CheckCommand(command[i], roamingRobot))
                 {
-                    if (CheckIfRoamingRobotXDirection(roamingRobot.Direction))// Robotun X pozisyonundayken baktığı yöne göre X değerini değiştirme
+                    if (CheckIfRoamingRobotXDirection(roamingRobot.Direction)) // Robotun X pozisyonundayken E veya W ye göre baktığı yöndeki X değerini değiştirme
                     {
-                        if (roamingRobot.Direction == 'E')
-                        {
-                            roamingRobot.PositionXPlane++;
-                        }
-                        else
-                        {
-                            roamingRobot.PositionXPlane--;
-                        }
+                        CheckXDirection(roamingRobot);
                     }
                     else if (CheckIfRoamingRobotYDirection(roamingRobot.Direction))// Robotun Y pozisyonundayken baktığı yöne göre Y değerini değiştirme
                     {
-                        if (roamingRobot.Direction == 'N')
-                        {
-                            roamingRobot.PositionYPlane++;
-                        }
-                        else
-                        {
-                            roamingRobot.PositionYPlane--;
-                        }
+                        CheckYDirection(roamingRobot);
                     }
                 }
             }
         }
         #endregion
 
-        #region Komut Kontrolü ile Robotun yönünü belirleme
+
+        #region Move komutu geldiğinde Gezici Robotun X yönündeki hareketi
+        private void CheckXDirection(RoamingRobot roamingRobot)
+        {
+            if (roamingRobot.Direction == 'E')
+            {
+                roamingRobot.PositionXPlane++;
+            }
+            else
+            {
+                roamingRobot.PositionXPlane--;
+            }
+        }
+        #endregion
+
+        #region Move komutu geldiğinde Gezici Robotun Y yönündeki hareketi
+        private void CheckYDirection(RoamingRobot roamingRobot)
+        {
+            if (roamingRobot.Direction == 'N')
+            {
+                roamingRobot.PositionYPlane++;
+            }
+            else
+            {
+                roamingRobot.PositionYPlane--;
+            }
+        } 
+        #endregion
+
+        #region Gelen komuta göre Gezici Robotun izleyeceği yol
         private bool CheckCommand(char command, RoamingRobot roamingRobot)
         {
-
             if (command == 'M')
             {
                 return true;
             }
             else if (command == 'R')
             {
-                if (roamingRobot.Direction == 'W')
-                {
-                    roamingRobot.Direction = 'N';
-                }
-                else if (roamingRobot.Direction == 'N')
-                {
-                    roamingRobot.Direction = 'E';
-                }
-                else if (roamingRobot.Direction == 'E')
-                {
-                    roamingRobot.Direction = 'S';
-                }
-                else
-                {
-                    roamingRobot.Direction = 'W';
-                }
+                CheckCommandR(roamingRobot);
             }
             else if (command == 'L')
             {
-                if (roamingRobot.Direction == 'N')
-                {
-                    roamingRobot.Direction = 'W';
-                }
-                else if (roamingRobot.Direction == 'W')
-                {
-                    roamingRobot.Direction = 'S';
-                }
-                else if (roamingRobot.Direction == 'S')
-                {
-                    roamingRobot.Direction = 'E';
-                }
-                else
-                {
-                    roamingRobot.Direction = 'N';
-                }
+                CheckCommandL(roamingRobot);
             }
-
-
             return false;
         }
         #endregion
 
+        #region Komut L Geldiğinde
+        private static void CheckCommandL(RoamingRobot roamingRobot)
+        {
+            if (roamingRobot.Direction == 'N')
+            {
+                roamingRobot.Direction = 'W';
+            }
+            else if (roamingRobot.Direction == 'W')
+            {
+                roamingRobot.Direction = 'S';
+            }
+            else if (roamingRobot.Direction == 'S')
+            {
+                roamingRobot.Direction = 'E';
+            }
+            else
+            {
+                roamingRobot.Direction = 'N';
+            }
+        }
+        #endregion
+
+        #region Komut R Geldiğinde
+        private static void CheckCommandR(RoamingRobot roamingRobot)
+        {
+            if (roamingRobot.Direction == 'W')
+            {
+                roamingRobot.Direction = 'N';
+            }
+            else if (roamingRobot.Direction == 'N')
+            {
+                roamingRobot.Direction = 'E';
+            }
+            else if (roamingRobot.Direction == 'E')
+            {
+                roamingRobot.Direction = 'S';
+            }
+            else
+            {
+                roamingRobot.Direction = 'W';
+            }
+        } 
+        #endregion
+        
         #region Robotun Lokasyon içerisinde bulunup bulunmama durumu
         private bool CheckIfRobotLocation(Point location, RoamingRobot roamingRobot)
         {
