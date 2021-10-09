@@ -1,5 +1,6 @@
 ﻿using MarsRover.Bussines.Services;
 using MarsRover.Models;
+using MarsRover.Validations;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,59 +15,19 @@ namespace MarsRover.Bussines
         // N E W S
         public string ScoutRobot(Point location, RoamingRobot roamingRobot, string command)
         {
-            if (Validations(location,roamingRobot,command) == "Başarılı")
+            if (ValidationCheck.Validations(location, roamingRobot, command) == "Başarılı")
             {
                 CommandControl(roamingRobot, command);
                 return (roamingRobot.PositionXPlane + " " + roamingRobot.PositionYPlane + " " + roamingRobot.Direction);
             }
 
-            return Validations(location, roamingRobot, command);
-            
+            return ValidationCheck.Validations(location, roamingRobot, command);
+
         }
 
-        #region Kuralların Kontrolü sağlandı
-        public string Validations(Point Location, RoamingRobot roamingRobot, string command)
-        {
-            if (!CheckIfRobotLocation(Location, roamingRobot))
-            {
-                return "Gezici Robotun konumu Platonun Dışında Tanımlanmıştır";
-            }
-            else if (!CheckIfRobotRotation(roamingRobot))
-            {
-                return "Gezici Robotun yönü tanımlanamadı";
-            }
-            else if (!CheckIfCommand(command))
-            {
-                return "Gezici Robota verilen komut tanımlanamadı";
-            }
-            return "Başarılı";
-        } 
-        #endregion
 
-        #region Gezici Robota girilen komut harflerinin kontrolü
-        private bool CheckIfCommand(string command)
-        {
-            for (int i = 0; i < command.Length; i++)
-            {
-                if (command[i] == 'R' || command[i] == 'L' || command[i] == 'M')
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        #endregion
 
-        #region Gezici Robota verilen yönün kontrolü
-        private bool CheckIfRobotRotation(RoamingRobot roamingRobot)
-        {
-            if (roamingRobot.Direction == 'N' || roamingRobot.Direction == 'E' || roamingRobot.Direction == 'W' || roamingRobot.Direction == 'S')
-            {
-                return true;
-            }
-            return false;
-        }
-        #endregion
+
 
         #region Command Control
         private void CommandControl(RoamingRobot roamingRobot, string command)
@@ -176,21 +137,6 @@ namespace MarsRover.Bussines
             {
                 roamingRobot.Direction = 'W';
             }
-        }
-        #endregion
-
-        #region Robotun Lokasyon içerisinde bulunup bulunmama durumu
-        private bool CheckIfRobotLocation(Point location, RoamingRobot roamingRobot)
-        {
-            if (roamingRobot.PositionXPlane > location.X)
-            {
-                return false;
-            }
-            if (roamingRobot.PositionYPlane > location.Y)
-            {
-                return false;
-            }
-            return true;
         }
         #endregion
 
