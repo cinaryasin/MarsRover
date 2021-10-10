@@ -33,12 +33,12 @@ namespace MarsRover.Validations
         {
             for (int i = 0; i < command.Length; i++)
             {
-                if (command[i] == 'R' || command[i] == 'L' || command[i] == 'M')
+                if (command[i] != 'R' && command[i] != 'L' && command[i] != 'M')
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
         #endregion
         #region Gezici Robota verilen yönün kontrolü

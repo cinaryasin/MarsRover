@@ -11,6 +11,5 @@ namespace MarsRover.Bussines.Services
     public interface IRoamingRobotService
     {
         public string ScoutRobot(Point Location, RoamingRobot roamingRobot, string command); // keşif robotu
-
     }
 }

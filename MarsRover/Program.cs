@@ -10,6 +10,8 @@ namespace MarsRover
     {
         static void Main(string[] args)
         {
+
+            IRoamingRobotService roamingRobotService = new RoamingRobotService();
             #region Platonun Düzlem Bilgisi
             Console.WriteLine("Platonun Düzlem Bilgisini Belirleyin = Örn: 5 5");
             var locationInput = Console.ReadLine().Split(" ");
@@ -18,27 +20,40 @@ namespace MarsRover
                 X = Convert.ToInt32(locationInput[0]),
                 Y = Convert.ToInt32(locationInput[1])
             };
+
             #endregion
 
-            #region Gezicinin Konum ve Yönü
-
-            Console.WriteLine("Geziciyi konumlandıracağınız Konumu belirtiniz");
-            var roamingRobotInput = Console.ReadLine().Split(" ");
-            RoamingRobot roamingRobot = new RoamingRobot
+            Console.WriteLine("Robot sayısı Giriniz");
+            var robotCount = int.Parse(Console.ReadLine());
+            var commands = new string[robotCount];
+            var roamingRobots = new RoamingRobot[robotCount];
+            for (int i = 0; i < robotCount; i++)
             {
-                PositionXPlane = Convert.ToInt32(roamingRobotInput[0]),
-                PositionYPlane = Convert.ToInt32(roamingRobotInput[1]),
-                Direction = Convert.ToChar(roamingRobotInput[2])
-            };
-            #endregion
+                #region Gezicinin Konum ve Yönü
+                Console.WriteLine("Geziciyi konumlandıracağınız Konumu belirtiniz");
+                var roamingRobotInput = Console.ReadLine().Split(" ");
+                
+                roamingRobots[i] = new RoamingRobot
+                {
+                    PositionXPlane = Convert.ToInt32(roamingRobotInput[0]),
+                    PositionYPlane = Convert.ToInt32(roamingRobotInput[1]),
+                    Direction = Convert.ToChar(roamingRobotInput[2])
+                };
+                #endregion
 
-            #region Komut bilgisi
-            Console.WriteLine("Komutu giriniz. Örn : LMLMMLRMR");
-            string command = Console.ReadLine();
-            #endregion
+                #region Komut bilgisi
+                Console.WriteLine("Komutu giriniz. Örn : LMLMMLRMR");
+                //string command = Console.ReadLine();
+                commands[i] = Console.ReadLine();
+                #endregion
+               
+            }
+            for (int i = 0; i < robotCount; i++)
+            {
+                Console.WriteLine(roamingRobotService.ScoutRobot(location, roamingRobots[i], commands[i]));
+            }  
 
-            IRoamingRobotService roamingRobotService = new RoamingRobotService();
-            Console.WriteLine(roamingRobotService.ScoutRobot(location, roamingRobot, command));
+
         }
     }
 }
