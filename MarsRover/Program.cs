@@ -13,7 +13,7 @@ namespace MarsRover
 
             IRoamingRobotService roamingRobotService = new RoamingRobotService();
             #region Platonun Düzlem Bilgisi
-            Console.WriteLine("Platonun Düzlem Bilgisini Belirleyin = Örn: 5 5");
+            Console.WriteLine("Platonun Düzlem Bilgisini Belirleyin. Örn: 5 5");
             var locationInput = Console.ReadLine().Split(" ");
             Point location = new Point
             {
@@ -23,14 +23,14 @@ namespace MarsRover
 
             #endregion
 
-            Console.WriteLine("Robot sayısı Giriniz");
+            Console.WriteLine("Robot sayısı Giriniz. Örn: 2");
             var robotCount = int.Parse(Console.ReadLine());
             var commands = new string[robotCount];
             var roamingRobots = new RoamingRobot[robotCount];
             for (int i = 0; i < robotCount; i++)
             {
                 #region Gezicinin Konum ve Yönü
-                Console.WriteLine("Geziciyi konumlandıracağınız Konumu belirtiniz");
+                Console.WriteLine("Geziciyi konumlandıracağınız Konumu ve Yönü belirtiniz. Örn: 1 5 E");
                 var roamingRobotInput = Console.ReadLine().Split(" ");
                 
                 roamingRobots[i] = new RoamingRobot
@@ -42,7 +42,7 @@ namespace MarsRover
                 #endregion
 
                 #region Komut bilgisi
-                Console.WriteLine("Komutu giriniz. Örn : LMLMMLRMR");
+                Console.WriteLine("Geziciyi Yönlendireceğiniz komutu giriniz. 'L', 'R', 'M' Örn : LMLMMLRMR");
                 //string command = Console.ReadLine();
                 commands[i] = Console.ReadLine();
                 #endregion
