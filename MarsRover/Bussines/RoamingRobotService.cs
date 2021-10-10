@@ -27,8 +27,6 @@ namespace MarsRover.Bussines
 
 
 
-
-
         #region Command Control
         private void CommandControl(RoamingRobot roamingRobot, string command)
         {
